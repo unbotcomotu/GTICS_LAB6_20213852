@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="navbar::head('Agregar reserva')">
+</head>
+<body>
+<div th:replace="navbar.html::navbar('Reservas')"></div>
+<div style="padding: 20px">
+    <form th:object="${mesaPorUsuario}" th:action="@{/agregarReserva}" method="post">
+        <div class="row">
+            <label>Mesa: </label>
+            <select style="margin-bottom: 10px" class="form-control" th:field="*{mesa.id}">
+                <option th:each="mesaLista:${listaMesas}" th:value="${mesaLista.id}" th:selected="${mesaLista.id==mesaPorUsuario.mesa.id}" th:text="${mesaLista.nombre}"></option>
+            </select>
+            <label>Fecha de inicio: </label>
+            <input style="margin-bottom: 10px" class="form-control" type="datetime-local" th:field="*{fechaInicio}">
+            <label class="invalid-feedback" th:if="${#fields.hasErrors('fechaInicio')}" th:errors="*{fechaInicio}"></label>
+            <label>Fecha de culminación: </label>
+            <input style="margin-bottom: 10px" class="form-control" type="datetime-local" th:field="*{fechaFin}">
+            <label class="invalid-feedback" th:if="${#fields.hasErrors('fechaFin')}" th:errors="*{fechaFin}"></label>
+            <button class="btn btn-success" type="submit">Agregar</button>
+            <label style="color:red" th:if="${errorStock!=null}" th:text="${errorStock}"></label>
+            <label style="color:red" th:if="${errorFecha!=null}" th:text="${errorFecha}"></label>
+            <a class="btn btn-danger" href="/reservas">Cancelar</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

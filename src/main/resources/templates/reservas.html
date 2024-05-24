@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head sec:authorize="hasAnyAuthority('Cliente')" th:replace="navbar::head('Reservas')">
+</head>
+<head sec:authorize="hasAnyAuthority('Gerente')" th:replace="navbar::head('Todas las reservas')">
+</head>
+<body>
+<div sec:authorize="hasAnyAuthority('Cliente')" th:replace="navbar.html::navbar('Reservas')"></div>
+<div sec:authorize="hasAnyAuthority('Gerente')" th:replace="navbar.html::navbar('Todas las reservas')"></div>
+<h1 sec:authorize="hasAnyAuthority('Cliente')">Reservas</h1>
+<h1 sec:authorize="hasAnyAuthority('Gerente')">Todas las reservas</h1>
+<div>
+    <a sec:authorize="hasAnyAuthority('Cliente')" class="btn btn-info" href="/vistaAgregarReserva">Registrar reserva</a>
+</div>
+<div style="padding: 20px;width: 100%">
+    <table style="width: 100%;">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Usuario</td>
+            <td>Mesa</td>
+            <td>Fecha de inicio</td>
+            <td>Fecha de fin</td>
+            <td>Acciones</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="reserva:${listaReservas}">
+            <td th:text="${reserva.id}"></td>
+            <td th:text="${reserva.cliente.nombre}"></td>
+            <td th:text="${reserva.mesa.nombre}"></td>
+            <td th:text="${reserva.fechaInicio}"></td>
+            <td th:text="${reserva.fechaFin}"></td>
+            <td sec:authorize="hasAnyAuthority('Cliente')">
+                <div class="row">
+                    <div class="col-6">
+                        <a th:href="@{|/cancelarReserva?id=${reserva.id}|}">Devolver</a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="navbar::head('Guardar mesa')">
+</head>
+<body>
+<div th:replace="navbar.html::navbar('Mesas')"></div>
+<div style="padding: 20px">
+    <form th:object="${mesa}" th:action="@{/actualizarListaMesas}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <div class="row">
+            <label>Nombre: </label>
+            <input style="margin-bottom: 10px" class="form-control" type="text" th:field="*{nombre}">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+            <label>Direccion: </label>
+            <input style="margin-bottom: 10px" class="form-control" type="text" th:field="*{direccion}">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></div>
+            <label>Capacidad: </label>
+            <input style="margin-bottom: 10px" class="form-control" type="number" th:field="*{capacidad}">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('capacidad')}" th:errors="*{capacidad}"></div>
+            <button class="btn btn-success" type="submit">Guardar</button>
+            <a class="btn btn-danger" href="/mesas">Cancelar</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

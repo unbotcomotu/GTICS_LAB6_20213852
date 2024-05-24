@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="navbar::head('Mesas')">
+</head>
+<body>
+<div th:replace="navbar.html::navbar('Mesas')"></div>
+<h1>Mesas</h1>
+<div>
+    <a sec:authorize="hasAnyAuthority('Administrador')" class="btn btn-info" href="/vistaAgregarMesa">Agregar mesa</a>
+</div>
+<div style="padding: 20px;width: 100%">
+    <table style="width: 100%;">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Nombre</td>
+            <td>Dirección</td>
+            <td>Capacidad</td>
+            <td>Disponibilidad</td>
+            <td>Acciones</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="mesa:${listaMesas}">
+            <td th:text="${mesa.id}"></td>
+            <td th:text="${mesa.nombre}"></td>
+            <td th:text="${mesa.direccion}"></td>
+            <td th:text="${mesa.capacidad}"></td>
+            <td th:text="${mesa.disponibilidad}"></td>
+            <td sec:authorize="hasAnyAuthority('Administrador')">
+                <div class="row">
+                    <div class="col-6">
+                        <a th:href="@{|/vistaEditarMesa?id=${mesa.id}|}">Editar mesa</a>
+                    </div>
+                    <div class="col-6">
+                        <a th:href="@{|/eliminarMesa?id=${mesa.id}|}">Eliminar mesa</a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
