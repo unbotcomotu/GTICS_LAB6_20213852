@@ -13,10 +13,10 @@
             </select>
             <label>Fecha de inicio: </label>
             <input style="margin-bottom: 10px" class="form-control" type="datetime-local" th:field="*{fechaInicio}">
-            <label class="invalid-feedback" th:if="${#fields.hasErrors('fechaInicio')}" th:errors="*{fechaInicio}"></label>
+            <label style="color: red" th:if="${#fields.hasErrors('fechaInicio')}" th:errors="*{fechaInicio}"></label>
             <label>Fecha de culminación: </label>
             <input style="margin-bottom: 10px" class="form-control" type="datetime-local" th:field="*{fechaFin}">
-            <label class="invalid-feedback" th:if="${#fields.hasErrors('fechaFin')}" th:errors="*{fechaFin}"></label>
+            <label style="color: red" th:if="${#fields.hasErrors('fechaFin')}" th:errors="*{fechaFin}"></label>
             <button class="btn btn-success" type="submit">Agregar</button>
             <label style="color:red" th:if="${errorStock!=null}" th:text="${errorStock}"></label>
             <label style="color:red" th:if="${errorFecha!=null}" th:text="${errorFecha}"></label>
